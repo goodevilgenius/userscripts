@@ -3,6 +3,7 @@
 // @namespace danielrayjones
 // @description Allow removal of visited links on Amazon Giveaway Listing
 // @include https://giveawaylisting.com/
+// @version 1.0
 // ==/UserScript==
 
 var hideVisited = function(evt) {
@@ -10,7 +11,6 @@ var hideVisited = function(evt) {
   var $links = $jq('#giveaways a[href*="amzn.to"]');
 
   $links.each(function() {
-    console.log(this);
     var href = $jq(this).attr('href');
     if (localStorage.getItem(href)) {
       $jq(this).parent('td').parent('tr').css('display', checked ? 'none' : 'table-row');
