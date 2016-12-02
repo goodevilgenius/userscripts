@@ -1,38 +1,38 @@
-// ==UserScript== 
+// ==UserScript==
 // @name Amazon Giveaway Listing Visited Remover
 // @namespace danielrayjones
 // @description Allow removal of visited links on Amazon Giveaway Listing
 // @include https://giveawaylisting.com/
-// @version 1.0
+// @version 1.3
+// @require https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
+var checked = false;
+
+var hideOne = function(el) {
+  $(el).parent('td').parent('tr').css('display', checked ? 'none' : 'table-row');
+};
+
 var hideVisited = function(evt) {
-  var checked = $jq(this).prop('checked');
-  var $links = $jq('#giveaways a[href*="amzn.to"]');
+  checked = $(this).prop('checked');
+  var $links = $('#giveaways a[href*="amzn.to"]');
 
   $links.each(function() {
-    var href = $jq(this).attr('href');
+    var href = $(this).attr('href');
     if (localStorage.getItem(href)) {
-      $jq(this).parent('td').parent('tr').css('display', checked ? 'none' : 'table-row');
+      hideOne(this);
     }
   });
 };
 
-var script = document.createElement("script");
-script.setAttribute("src", "//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js");
-script.addEventListener('load', function() {
+$(document).ready(function() {
+  $('#giveaways').on('click', 'a[href*="amzn.to"]', function(evt) {
 
-  window.$jq = jQuery.noConflict();
-  $jq(document).ready(function() {
-    $jq('#giveaways').on('click', 'a[href*="amzn.to"]', function(evt) {
-
-      var href = $(this).attr('href');
-      localStorage[href] = "visited";
-
-    });
-    
-    $jq('b:contains("Hide")').after('<label><input type="checkbox" id="hide_visited"/> Visited</label>');
-    $jq('#hide_visited').on('click', hideVisited);
+    var href = $(this).attr('href');
+    localStorage[href] = "visited";
+    hideOne(this);
   });
-}, false);
-document.body.appendChild(script);
+
+  $('b:contains("Hide")').after('<label><input type="checkbox" id="hide_visited"/> Visited</label>');
+  $('#hide_visited').on('click', hideVisited);
+});
