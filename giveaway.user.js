@@ -6,7 +6,16 @@
 // ==/UserScript==
 
 var hideVisited = function(evt) {
-  console.log(evt);
+  var checked = $jq(this).prop('checked');
+  var $links = $jq('#giveaways a[href*="amzn.to"]');
+
+  $links.each(function() {
+    console.log(this);
+    var href = $jq(this).attr('href');
+    if (localStorage.getItem(href)) {
+      $jq(this).parent('td').parent('tr').css('display', checked ? 'none' : 'table-row');
+    }
+  });
 };
 
 var script = document.createElement("script");
