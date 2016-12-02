@@ -1,0 +1,6 @@
+url: https://projects.danielrayjones.com
+baseurl: /userscripts
+
+userscripts:
+  - file: giveaway.user.js
+    name: Amazon Giveaway Listing Visited Remover

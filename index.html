@@ -1,0 +1,18 @@
+---
+title: Userscripts
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>{{ page.title }}</title>
+  </head>
+  <body>
+    <ul>
+    {% for script in site.userscripts %}
+    <li><a href="{{ site.baseurl }}/{{ script.file }}">{{ script.name }}</a><br/>
+      Bookmarklet <a href="javascript:(function(){var e=document.createElement('script');e.src='{{ site.url }}{{ site.baseurl }}/{{ script.file }}';document.body.appendChild(e);})()">{{ script.name }}</a></li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
