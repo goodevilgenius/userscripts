@@ -4,11 +4,15 @@
 // @description Allow removal of visited links on Amazon Giveaway Listing
 // @include https://smile.amazon.com/ga/giveaways*
 // @include https://www.amazon.com/ga/giveaways*
-// @version 1.3.1
+// @version 1.4
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
 var checked = false;
+
+var getSmallUrl = function(fullUrl) {
+  return fullUrl.split('?')[0];
+};
 
 var hideOne = function(el) {
   $(el).parents('div.a-spacing-base').css('display', checked ? 'none' : 'block');
@@ -19,7 +23,7 @@ var hideVisited = function(evt) {
   var $links = $('.landingPageSpacings a[href*="amazon.com/ga"]');
 
   $links.each(function() {
-    var href = $(this).attr('href');
+    var href = getSmallUrl($(this).attr('href'));
     if (localStorage.getItem(href)) {
       hideOne(this);
     }
@@ -29,7 +33,7 @@ var hideVisited = function(evt) {
 $(document).ready(function() {
   $('.landingPageSpacings').on('click', 'a[href*="amazon.com/ga"]', function(evt) {
 
-    var href = $(this).attr('href');
+    var href = getSmallUrl($(this).attr('href'));
     localStorage[href] = "visited";
     hideOne(this);
   });
