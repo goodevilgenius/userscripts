@@ -4,7 +4,7 @@
 // @description Allow removal of visited links on Amazon Giveaway Listing
 // @include https://smile.amazon.com/ga/giveaways*
 // @include https://www.amazon.com/ga/giveaways*
-// @version 1.5
+// @version 1.5.1
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
@@ -31,7 +31,7 @@ var hideVisited = function(evt) {
 };
 
 $(document).ready(function() {
-  $('.landingPageSpacings').on('click', 'a[href*="amazon.com/ga"]', function(evt) {
+  $('#giveaway-grid').on('click', 'a[href*="amazon.com/ga"]', function(evt) {
 
     var href = getSmallUrl($(this).attr('href'));
     localStorage[href] = "visited";
