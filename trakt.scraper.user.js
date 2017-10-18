@@ -1,3 +1,4 @@
+// -*- tab-width: 4; js-indent-level: 4; -*-
 // ==UserScript==
 // @name         Trakt Scraper
 // @namespace    danielrayjones
@@ -31,7 +32,7 @@
         //let title = $ep.data('title');
         let title = series_title + " " + season_number + "x" + ep_number + ' "' + ep_title + '"';
 
-        let watched = watched_shows[series].e[ep];
+        let watched = watched_shows[series] ? watched_shows[series].e[ep] : null;
 
         let this_ep = { title, url, watches: watched ? watched[1] : 0, last_watched: watched ? watched[0] : null};
 
