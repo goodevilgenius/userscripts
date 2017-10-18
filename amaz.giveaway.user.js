@@ -4,7 +4,7 @@
 // @description Allow removal of visited links on Amazon Giveaway Listing
 // @include https://smile.amazon.com/ga/giveaways*
 // @include https://www.amazon.com/ga/giveaways*
-// @version 1.4
+// @version 1.6
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
