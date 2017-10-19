@@ -65,7 +65,6 @@
             url,
             watches: watched ? watched[1] : 0,
             last_watched: watched ? watched[0] : null,
-            node: that
         };
 
         return this_ep;
@@ -85,7 +84,6 @@
             url,
             watches: watched ? watched[1] : 0,
             last_watched: watched ? watched[0] : null,
-            node: that
         };
 
         return this_mov;
@@ -95,6 +93,9 @@
 
         watched_shows = JSON.parse(localStorage.watched_shows);
         watched_movies = JSON.parse(localStorage.watched_movies);
+
+        let $el = $('<a>');
+        $(document.body).append($el);
 
         let items = $('[itemtype="http://schema.org/TVEpisode"], [itemtype="http://schema.org/Movie"]').map(function() {
             let type = $(this).attr('itemtype').replace(/^https?:\/\/schema.org\//, '');
@@ -115,6 +116,10 @@
 
         console.log(items);
 
+        let data_string = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(items.toArray()));
+        $el.attr('href', data_string);
+        $el.attr('download', 'watched.json');
+        $el.get(0).click();
     }
 
 })();
