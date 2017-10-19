@@ -7,10 +7,18 @@
 // @author       Dan Jones
 // @match        https://trakt.tv/*
 // @grant        none
+// @require      https://raw.githubusercontent.com/tommcfarlin/konami-code/master/src/jquery.konami.min.js
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    $(window).konami({
+        code: [71,69,84],
+        eventName: 'konami.get'
+    });
+
+    $(window).on('konami.get', getStuff);
 
     String.prototype.lpad = function(padString, length) {
         let str = this;
@@ -19,8 +27,8 @@
         return str;
     };
 
-    let watched_shows = JSON.parse(localStorage.watched_shows);
-    let watched_movies = JSON.parse(localStorage.watched_movies);
+    let watched_shows;
+    let watched_movies;
 
     function processEpisode(that) {
         let $ep = $(that);
@@ -50,7 +58,15 @@
 
         let watched = watched_shows[series] ? watched_shows[series].e[ep] : null;
 
-        let this_ep = { series_id: series, episode_id: ep, title, url, watches: watched ? watched[1] : 0, last_watched: watched ? watched[0] : null};
+        let this_ep = {
+            series_id: series,
+            episode_id: ep,
+            title,
+            url,
+            watches: watched ? watched[1] : 0,
+            last_watched: watched ? watched[0] : null,
+            node: that
+        };
 
         return this_ep;
     }
@@ -63,27 +79,42 @@
         let url = $mov.children('[itemprop="url"]').attr('content');
         let watched = watched_movies[id];
 
-        let this_mov = { id, title, url, watches: watched ? watched[1] : 0, last_watched: watched ? watched[0] : null};
+        let this_mov = {
+            id,
+            title,
+            url,
+            watches: watched ? watched[1] : 0,
+            last_watched: watched ? watched[0] : null,
+            node: that
+        };
 
         return this_mov;
     }
 
-    let items = $('[itemtype="http://schema.org/TVEpisode"], [itemtype="http://schema.org/Movie"]').map(function() {
-        let type = $(this).attr('itemtype').replace(/^https?:\/\/schema.org\//, '');
+    function getStuff() {
 
-        let data = {};
-        switch(type) {
+        watched_shows = JSON.parse(localStorage.watched_shows);
+        watched_movies = JSON.parse(localStorage.watched_movies);
+
+        let items = $('[itemtype="http://schema.org/TVEpisode"], [itemtype="http://schema.org/Movie"]').map(function() {
+            let type = $(this).attr('itemtype').replace(/^https?:\/\/schema.org\//, '');
+
+            let data = {};
+            switch(type) {
             case "TVEpisode":
                 data = processEpisode(this);
                 break;
             case "Movie":
                 data = processMovie(this);
                 break;
-        }
-        data.type = type;
+            }
+            data.type = type;
 
-        return data;
-    });
+            return data;
+        });
 
-    console.log(items);
+        console.log(items);
+
+    }
+
 })();
