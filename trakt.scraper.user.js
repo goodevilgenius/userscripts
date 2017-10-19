@@ -7,11 +7,17 @@
 // @author       Dan Jones
 // @match        https://trakt.tv/*
 // @grant        none
-// @require https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    String.prototype.lpad = function(padString, length) {
+        let str = this;
+        while (str.length < length)
+            str = padString + str;
+        return str;
+    };
 
     let watched_shows = JSON.parse(localStorage.watched_shows);
     let watched_movies = JSON.parse(localStorage.watched_movies);
@@ -20,21 +26,31 @@
         let $ep = $(that);
         let $series = $ep.find('[itemtype="http://schema.org/TVSeries"]');
 
+        if ($series.length < 1) {
+            $series = $('[itemtype="http://schema.org/TVSeries"]');
+        }
+
         let series = $ep.data('show-id');
         let ep = $ep.data('episode-id');
         //let url = $ep.data('url');
         let url = $ep.children('[itemprop="url"]').attr('content');
 
         let series_title = $series.children('[itemprop="name"]').attr('content');
-        let ep_title = $ep.children('[itemprop="name"]').attr('content');
-        let ep_number = $ep.children('[itemprop="episodeNumber"]').attr('content');
+
+        let $ep_title = $ep.children('[itemprop="name"]');
+        if ($ep_title.length < 1) {
+            $ep_title = $ep.find('[itemprop="name"]');
+        }
+
+        let ep_title = $ep_title.attr('content');
+        let ep_number = $ep.find('[itemprop="episodeNumber"]').attr('content');
         let season_number = $ep.data('season-number');
         //let title = $ep.data('title');
-        let title = series_title + " " + season_number + "x" + ep_number + ' "' + ep_title + '"';
+        let title = series_title + " " + season_number + "x" + String(ep_number).lpad("0", 2) + ' "' + ep_title + '"';
 
         let watched = watched_shows[series] ? watched_shows[series].e[ep] : null;
 
-        let this_ep = { title, url, watches: watched ? watched[1] : 0, last_watched: watched ? watched[0] : null};
+        let this_ep = { series_id: series, episode_id: ep, title, url, watches: watched ? watched[1] : 0, last_watched: watched ? watched[0] : null};
 
         return this_ep;
     }
@@ -47,7 +63,7 @@
         let url = $mov.children('[itemprop="url"]').attr('content');
         let watched = watched_movies[id];
 
-        let this_mov = { title, url, watches: watched ? watched[1] : 0, last_watched: watched ? watched[0] : null};
+        let this_mov = { id, title, url, watches: watched ? watched[1] : 0, last_watched: watched ? watched[0] : null};
 
         return this_mov;
     }
