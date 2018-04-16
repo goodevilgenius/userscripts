@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Viewcomic Scraper
 // @namespace    danielrayjones
-// @version      0.0.3
+// @version      0.0.4
 // @description  Scrape comics from viewcomic.com
 // @author       Dan Jones
 // @match        http://viewcomic.com/*
@@ -32,8 +32,11 @@
         let name = end ? end : 'comic';
 
         let imgs = $('div.pinbin-copy img.picture').toArray();
+        console.log(imgs);
 
         function getOne() {
+            if (!imgs.length) return;
+
             let img = imgs.shift();
             console.log(img.src);
 
