@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Viewcomic Scraper
 // @namespace    danielrayjones
-// @version      0.0.2
+// @version      0.0.3
 // @description  Scrape comics from viewcomic.com
 // @author       Dan Jones
 // @match        http://viewcomic.com/*
@@ -22,18 +22,31 @@
     $(window).on('konami.get', getStuff);
 
     function getStuff() {
-      let i = 0;
+        let i = 0;
 
-      $('div.pinbin-copy img.picture').each(function () {
-        let $el = $('<a>');
-        $(document.body).append($el);
+        let path = location.pathname.split('/');
+        let end = path.pop();
+        while (!end && path.length) {
+            end = path.pop();
+        }
+        let name = end ? end : 'comic';
 
-        $el.attr('href', this.src);
-        $el.attr('download', (i < 10 ? '00' : '0' ) + i + '.jpg');
-        $el.get(0).click();
+        let imgs = $('div.pinbin-copy img.picture').toArray();
 
-        i = i+1;
-      });
+        function getOne() {
+            let img = imgs.shift();
+            console.log(img.src);
+
+            let $el = $('<a>');
+            $(document.body).append($el);
+            $el.attr('href', img.src);
+            $el.attr('download', name + '-' + (i < 10 ? '00' : '0' ) + i + '.jpg');
+            $el.get(0).click();
+
+            i = i+1;
+            setTimeout(getOne, 1000);
+        }
+        getOne();
     }
 
 })();
