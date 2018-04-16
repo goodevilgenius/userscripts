@@ -31,7 +31,7 @@
         }
         let name = end ? end : 'comic';
 
-        let imgs = $('div.pinbin-copy img.picture').toArray();
+        let imgs = $('div.pinbin-copy img.picture, div.pinbin-copy img.hoverZoomLink').toArray();
         console.log(imgs);
 
         function getOne() {
