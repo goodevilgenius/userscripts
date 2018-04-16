@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Viewcomic Scraper
 // @namespace    danielrayjones
-// @version      0.0.4
+// @version      0.0.5
 // @description  Scrape comics from viewcomic.com
 // @author       Dan Jones
 // @match        http://viewcomic.com/*
@@ -35,19 +35,20 @@
         console.log(imgs);
 
         function getOne() {
-            if (!imgs.length) return;
-
+            if (!imgs) return;
             let img = imgs.shift();
             console.log(img.src);
 
-            let $el = $('<a>');
-            $(document.body).append($el);
-            $el.attr('href', img.src);
-            $el.attr('download', name + '-' + (i < 10 ? '00' : '0' ) + i + '.jpg');
-            $el.get(0).click();
+            fetch(img.src).then(resp => resp.blob()).then(blob => {
+                let $el = jQuery('<a>');
+                $(document.body).append($el);
+                $el.attr('href', URL.createObjectURL(blob));
+                $el.attr('download', name + '-' + (i < 10 ? '00' : '0' ) + i + '.jpg');
+                $el.get(0).click();
 
-            i = i+1;
-            setTimeout(getOne, 1000);
+                i = i+1;
+                setTimeout(getOne, 1000);
+            });
         }
         getOne();
     }
