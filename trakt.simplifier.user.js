@@ -39,7 +39,10 @@
         }
     });
 
-    // @todo Trigger resize?
+    // Trigger resize
+    if ($grid) {
+        $grid.data('isotope').layout();
+    }
 
     function processEpisode(that) {
         let $ep = $(that);
