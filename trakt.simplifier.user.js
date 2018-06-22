@@ -23,8 +23,15 @@
 
     let since = parseInt(query.since, 10);
 
-    let watched_shows = JSON.parse(localStorage.watched_shows);;
-    let watched_movies = JSON.parse(localStorage.watched_movies);
+    let watched_shows;
+    let watched_movies;
+    if ('compressedCache' in window) {
+        watched_shows = compressedCache.get('watched_shows');
+        watched_movies = compressedCache.get('watched_movies');
+    } else {
+        watched_shows = JSON.parse(localStorage.watched_shows);
+        watched_movies = JSON.parse(localStorage.watched_movies);
+    }
 
     $('[itemtype="http://schema.org/TVEpisode"], [itemtype="http://schema.org/Movie"]').each(function () {
         let type = $(this).attr('itemtype').replace(/^https?:\/\/schema.org\//, '');

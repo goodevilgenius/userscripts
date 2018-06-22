@@ -91,8 +91,13 @@
 
     function getStuff() {
 
-        watched_shows = JSON.parse(localStorage.watched_shows);
-        watched_movies = JSON.parse(localStorage.watched_movies);
+        if ('compressedCache' in window) {
+            watched_shows = compressedCache.get('watched_shows');
+            watched_movies = compressedCache.get('watched_movies');
+        } else {
+            watched_shows = JSON.parse(localStorage.watched_shows);
+            watched_movies = JSON.parse(localStorage.watched_movies);
+        }
 
         let $el = $('<a>');
         $(document.body).append($el);
