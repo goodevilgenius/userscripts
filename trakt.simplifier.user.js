@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Simplifier
 // @namespace    danielrayjones
-// @version      0.0.1
+// @version      0.0.2
 // @description  Strip out eps/movies from trakt lists based on a query string
 // @author       Dan Jones
 // @match        https://trakt.tv/*
