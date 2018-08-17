@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Viewcomic Scraper
 // @namespace    danielrayjones
-// @version      0.0.5
+// @version      0.0.6
 // @description  Scrape comics from viewcomic.com
 // @author       Dan Jones
 // @match        http://viewcomic.com/*
@@ -11,7 +11,9 @@
 // @require      https://raw.githubusercontent.com/tommcfarlin/konami-code/master/src/jquery.konami.min.js
 // ==/UserScript==
 
-(function() {
+/* global jQuery */
+
+(function($) {
     'use strict';
 
     $(window).konami({
@@ -40,7 +42,7 @@
             console.log(img.src);
 
             fetch(img.src).then(resp => resp.blob()).then(blob => {
-                let $el = jQuery('<a>');
+                let $el = $('<a>');
                 $(document.body).append($el);
                 $el.attr('href', URL.createObjectURL(blob));
                 $el.attr('download', name + '-' + (i < 10 ? '00' : '0' ) + i + '.jpg');
@@ -53,4 +55,4 @@
         getOne();
     }
 
-})();
+})(jQuery);
