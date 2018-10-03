@@ -3,13 +3,13 @@
 // @namespace danielrayjones
 // @description Plays Cookie Clicker for you
 // @include http://orteil.dashnet.org/cookieclicker/
-// @version 0.0.2
+// @version 0.0.3
 // ==/UserScript==
 
 let AutoClicker = {stop: false};
 unsafeWindow.AutoClicker = AutoClicker;
 
-document.addEventListener('load', function () {
+window.addEventListener('load', function () {
   'use strict';
 
   let cookie = document.getElementById('bigCookie');
