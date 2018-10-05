@@ -2,16 +2,17 @@
 // ==UserScript==
 // @name         Viewcomic Scraper
 // @namespace    danielrayjones
-// @version      0.0.6
+// @version      0.0.7
 // @description  Scrape comics from viewcomic.com
 // @author       Dan Jones
 // @match        http://viewcomic.com/*
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @require      https://raw.githubusercontent.com/tommcfarlin/konami-code/master/src/jquery.konami.min.js
+// @require      https://bowercdn.net/c/jszip-3.1.5/dist/jszip.min.js
 // ==/UserScript==
 
-/* global jQuery */
+/* global jQuery, JSZip */
 
 (function($) {
     'use strict';
@@ -36,23 +37,38 @@
         let imgs = $('div.pinbin-copy img.picture, div.pinbin-copy img.hoverZoomLink').toArray();
         console.log(imgs);
 
+        let cbz = new JSZip();
+
+        function downloadCbz() {
+            cbz.generateAsync({type: 'blob'})
+                .then(blob => {
+                    let title = name.replace(/-/g, ' ').replace(/\b([0-9]{4})\b/, '($1)');
+
+                    let $el = $('<a>');
+                    $(document.body).append($el);
+                    $el.attr('href', URL.createObjectURL(blob));
+                    $el.attr('download', `${title} (viewcomic) (Danjones).cbz`);
+                    $el.get(0).click();
+                });
+        }
+
         function getOne() {
-            if (!imgs) return;
+            if (!imgs || !imgs.length) {
+                downloadCbz();
+                return;
+            }
+
             let img = imgs.shift();
             console.log(img.src);
 
             fetch(img.src).then(resp => resp.blob()).then(blob => {
-                let $el = $('<a>');
-                $(document.body).append($el);
-                $el.attr('href', URL.createObjectURL(blob));
-                $el.attr('download', name + '-' + (i < 10 ? '00' : '0' ) + i + '.jpg');
-                $el.get(0).click();
+                cbz.file(name + '-' + (i < 10 ? '00' : '0' ) + i + '.jpg', blob);
 
                 i = i+1;
-                setTimeout(getOne, 1000);
+                setTimeout(getOne, 0);
             });
         }
+
         getOne();
     }
-
 })(jQuery);
