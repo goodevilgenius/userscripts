@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Comic Extra Scraper
 // @namespace    danielrayjones
-// @version      0.0.2
+// @version      0.0.3
 // @description  Scrape comics from comicextra.com
 // @author       Dan Jones
 // @match        https://www.comicextra.com/*
@@ -42,7 +42,7 @@ console.log('will scrape comics');
 
         let chapter = path.pop();
         let match;
-        if ((match = chapter.match(/^chapter-([0-9])+/))) {
+        if ((match = chapter.match(/^chapter-([0-9]+)/))) {
             chapter = match[1];
         }
 
