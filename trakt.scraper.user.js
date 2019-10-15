@@ -10,6 +10,8 @@
 // @require      https://raw.githubusercontent.com/tommcfarlin/konami-code/master/src/jquery.konami.min.js
 // ==/UserScript==
 
+/* global $, compressedCache, localStorage */
+
 (function() {
     'use strict';
 
@@ -50,6 +52,11 @@
             $ep_title = $ep.find('[itemprop="name"]');
         }
 
+        let released = $ep.data('released') || null;
+        if (released) {
+            released = (new Date(released)).getTime()/1000;
+        }
+
         let ep_title = $ep_title.attr('content');
         let ep_number = $ep.find('[itemprop="episodeNumber"]').attr('content');
         let season_number = $ep.data('season-number');
@@ -63,6 +70,7 @@
             episode_id: ep,
             title,
             url,
+            released,
             watches: watched ? watched[1] : 0,
             last_watched: watched ? watched[0] : null,
         };
