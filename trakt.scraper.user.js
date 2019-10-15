@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Scraper
 // @namespace    danielrayjones
-// @version      0.0.2
+// @version      0.0.3
 // @description  Scrape lists of shows/movies from Trakt and download a JSON file
 // @author       Dan Jones
 // @match        https://trakt.tv/*
