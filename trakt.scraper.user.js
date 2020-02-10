@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Scraper
 // @namespace    danielrayjones
-// @version      0.0.3
+// @version      0.0.4
 // @description  Scrape lists of shows/movies from Trakt and download a JSON file
 // @author       Dan Jones
 // @match        https://trakt.tv/*
@@ -24,8 +24,9 @@
 
     String.prototype.lpad = function(padString, length) {
         let str = this;
-        while (str.length < length)
+        while (str.length < length) {
             str = padString + str;
+        }
         return str;
     };
 
@@ -42,7 +43,6 @@
 
         let series = $ep.data('show-id');
         let ep = $ep.data('episode-id');
-        //let url = $ep.data('url');
         let url = $ep.children('[itemprop="url"]').attr('content');
 
         let series_title = $series.children('[itemprop="name"]').attr('content');
@@ -60,8 +60,22 @@
         let ep_title = $ep_title.attr('content');
         let ep_number = $ep.find('[itemprop="episodeNumber"]').attr('content');
         let season_number = $ep.data('season-number');
-        //let title = $ep.data('title');
-        let title = series_title + " " + season_number + "x" + String(ep_number).lpad("0", 2) + ' "' + ep_title + '"';
+
+        if (!season_number) {
+            let $title_ep = $ep.find('.main-title-sxe');
+            if ($title_ep.length && $title_ep.text()) {
+                let match = /([0-9+])x[0-9]+/.exec($title_ep.text());
+                if (match) {
+                    season_number = match[1];
+                }
+            }
+        }
+
+        if (!season_number) {
+            season_number = 0;
+        }
+
+        let title = series_title + " " + String(season_number) + "x" + String(ep_number).lpad("0", 2) + ' "' + ep_title + '"';
 
         let watched = watched_shows[series] ? watched_shows[series].e[ep] : null;
 
