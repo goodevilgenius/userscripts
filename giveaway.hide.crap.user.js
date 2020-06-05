@@ -3,11 +3,12 @@
 // @namespace danielrayjones
 // @description Remove stuff I don't like from Amazon Giveaway Listing
 // @include https://giveawaylisting.com/
-// @version 1.0
+// @version 1.0.1
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
 /* global $ */
+/* jshint esversion: 6 */
 
 var hide = function(text) {
   $('#giveaways a:contains("' + text +'")')

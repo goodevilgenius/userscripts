@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Scraper
 // @namespace    danielrayjones
-// @version      0.0.5
+// @version      0.0.6
 // @description  Scrape lists of shows/movies from Trakt and download a JSON file
 // @author       Dan Jones
 // @match        https://trakt.tv/*
@@ -11,6 +11,7 @@
 // ==/UserScript==
 
 /* global $, compressedCache, localStorage */
+/* jshint esversion: 6 */
 
 (function() {
     'use strict';

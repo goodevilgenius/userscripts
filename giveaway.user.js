@@ -3,9 +3,11 @@
 // @namespace danielrayjones
 // @description Allow removal of visited links on Amazon Giveaway Listing
 // @include https://giveawaylisting.com/
-// @version 1.3
+// @version 1.3.1
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
+
+/* jshint esversion: 6 */
 
 var checked = false;
 

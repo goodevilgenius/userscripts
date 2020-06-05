@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Comic Extra Scraper
 // @namespace    danielrayjones
-// @version      0.0.4
+// @version      0.0.5
 // @description  Scrape comics from comicextra.com
 // @author       Dan Jones
 // @match        https://www.comicextra.com/*
@@ -13,6 +13,7 @@
 // ==/UserScript==
 
 /* global jQuery, JSZip */
+/* jshint esversion: 6 */
 
 console.log('will scrape comics');
 

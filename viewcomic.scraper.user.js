@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Viewcomic Scraper
 // @namespace    danielrayjones
-// @version      0.0.8
+// @version      0.0.9
 // @description  Scrape comics from viewcomic.com
 // @author       Dan Jones
 // @match        http://viewcomic.com/*
@@ -13,6 +13,7 @@
 // ==/UserScript==
 
 /* global jQuery, JSZip */
+/* jshint esversion: 6 */
 
 (function($) {
     'use strict';

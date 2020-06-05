@@ -1,13 +1,15 @@
+// -*- tab-width: 4; js-indent-level: 4; -*-
 // ==UserScript==
 // @name WhenIWork True Total Worked
 // @namespace danielrayjones
 // @description Adds the Total hours worked, including today
 // @include https://app.wheniwork.com/payroll/
-// @version 0.2
+// @version 0.2.1
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js
 // ==/UserScript==
 
 /* global $ */
+/* jshint esversion: 6 */
 
 $(document).ready(function() {
   'use strict';
@@ -23,7 +25,7 @@ $(document).ready(function() {
     currentHourSum = hours;
 
     let weekPlusDayTotal = $('#week-plus-day-total');
-    let span = `<span class="hour-type-label">Total with Today</span>${hours}`
+    let span = `<span class="hour-type-label">Total with Today</span>${hours}`;
 
     if (weekPlusDayTotal.length === 0) {
       $('#header-summary-container .stats').append(
@@ -34,7 +36,7 @@ $(document).ready(function() {
     }
 
     // In case this ran while the page was loading, let's try again in two seconds.
-    setTimeout(addHours, 2000);
+    return setTimeout(addHours, 2000);
   }
 
   function addHours() {
@@ -52,8 +54,10 @@ $(document).ready(function() {
     if (currentHourSum === 0 && hourSum === 0) return setTimeout(addHours, 2000);
 
     if (currentHourSum !== hourSum && hourSum > 0) {
-      updateHours(hourSum);
+      return updateHours(hourSum);
     }
+
+    return null;
   }
 
   // The hours don't show up until after an AJAX request completes.

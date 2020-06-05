@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Show Picker
 // @namespace    danielrayjones
-// @version      0.0.3
+// @version      0.0.4
 // @description  Pick a show from progress page
 // @author       Dan Jones
 // @match        https://trakt.tv/users/*/progress*
@@ -11,6 +11,7 @@
 // ==/UserScript==
 
 /* global $, compressedCache, localStorage */
+/* jshint esversion: 6 */
 
 (function() {
     'use strict';

@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Full Comic Scraper
 // @namespace    danielrayjones
-// @version      0.0.3
+// @version      0.0.4
 // @description  Scrape comics from fullcomic.pro
 // @author       Dan Jones
 // @match        http://fullcomic.pro/*
@@ -13,6 +13,7 @@
 // ==/UserScript==
 
 /* global jQuery, JSZip */
+/* jshint esversion: 6 */
 
 console.log('will scrape comics');
 

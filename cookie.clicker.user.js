@@ -3,8 +3,10 @@
 // @namespace danielrayjones
 // @description Plays Cookie Clicker for you
 // @include http://orteil.dashnet.org/cookieclicker/
-// @version 0.0.3
+// @version 0.0.4
 // ==/UserScript==
+
+/* jshint esversion: 6 */
 
 let AutoClicker = {stop: false};
 unsafeWindow.AutoClicker = AutoClicker;
@@ -28,7 +30,7 @@ window.addEventListener('load', function () {
         console.log('clicking', shimmer);
         shimmer.click();
       });
-    })
+    });
   });
   shimmerObserver.observe(shimmers, { childList: true});
 

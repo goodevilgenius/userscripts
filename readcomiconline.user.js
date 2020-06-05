@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Read Comic Online Scraper
 // @namespace    danielrayjones
-// @version      0.0.2
+// @version      0.0.3
 // @description  Scrape comics from readcomiconline.to
 // @author       Dan Jones
 // @match        https://readcomiconline.to/*
@@ -13,8 +13,7 @@
 // ==/UserScript==
 
 /* global jQuery, JSZip */
-
-//console.log('will scrape comics');
+/* jshint esversion: 6 */
 
 (function($) {
     'use strict';
