@@ -2,12 +2,12 @@
 // ==UserScript==
 // @name         Trakt Scraper
 // @namespace    danielrayjones
-// @version      0.0.4
+// @version      0.0.5
 // @description  Scrape lists of shows/movies from Trakt and download a JSON file
 // @author       Dan Jones
 // @match        https://trakt.tv/*
 // @grant        none
-// @require      https://raw.githubusercontent.com/tommcfarlin/konami-code/master/src/jquery.konami.min.js
+// @require      https://bowercdn.net/c/konami-code-1.3.2/src/jquery.konami.min.js
 // ==/UserScript==
 
 /* global $, compressedCache, localStorage */

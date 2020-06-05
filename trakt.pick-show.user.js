@@ -2,12 +2,12 @@
 // ==UserScript==
 // @name         Trakt Show Picker
 // @namespace    danielrayjones
-// @version      0.0.2
+// @version      0.0.3
 // @description  Pick a show from progress page
 // @author       Dan Jones
 // @match        https://trakt.tv/users/*/progress*
 // @grant        none
-// @require      https://raw.githubusercontent.com/tommcfarlin/konami-code/master/src/jquery.konami.min.js
+// @require      https://bowercdn.net/c/konami-code-1.3.2/src/jquery.konami.min.js
 // ==/UserScript==
 
 /* global $, compressedCache, localStorage */

@@ -2,13 +2,13 @@
 // ==UserScript==
 // @name         Viewcomic Scraper
 // @namespace    danielrayjones
-// @version      0.0.7
+// @version      0.0.8
 // @description  Scrape comics from viewcomic.com
 // @author       Dan Jones
 // @match        http://viewcomic.com/*
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
-// @require      https://raw.githubusercontent.com/tommcfarlin/konami-code/master/src/jquery.konami.min.js
+// @require      https://bowercdn.net/c/konami-code-1.3.2/src/jquery.konami.min.js
 // @require      https://bowercdn.net/c/jszip-3.1.5/dist/jszip.min.js
 // ==/UserScript==
 

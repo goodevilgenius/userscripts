@@ -2,13 +2,13 @@
 // ==UserScript==
 // @name         Read Comic Online Scraper
 // @namespace    danielrayjones
-// @version      0.0.1
+// @version      0.0.2
 // @description  Scrape comics from readcomiconline.to
 // @author       Dan Jones
 // @match        https://readcomiconline.to/*
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
-// @require      https://raw.githubusercontent.com/tommcfarlin/konami-code/master/src/jquery.konami.min.js
+// @require      https://bowercdn.net/c/konami-code-1.3.2/src/jquery.konami.min.js
 // @require      https://bowercdn.net/c/jszip-3.1.5/dist/jszip.min.js
 // ==/UserScript==
 
