@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Show Picker
 // @namespace    danielrayjones
-// @version      0.0.1
+// @version      0.0.2
 // @description  Pick a show from progress page
 // @author       Dan Jones
 // @match        https://trakt.tv/users/*/progress*
@@ -37,9 +37,10 @@
         $shows = filterShows($shows);
 
         let picked = Math.floor(Math.random() * $shows.length);
+        let $picked = $shows.eq(picked);
 
         $shows.addClass('sortable-ghost');
-        $shows.eq(picked).removeClass('sortable-ghost');
+        $picked.removeClass('sortable-ghost').insertAfter($picked.parent().find('.pagination-top'));
 
     }
 
