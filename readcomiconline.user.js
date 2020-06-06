@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Read Comic Online Scraper
 // @namespace    danielrayjones
-// @version      0.0.3
+// @version      0.0.4
 // @description  Scrape comics from readcomiconline.to
 // @author       Dan Jones
 // @match        https://readcomiconline.to/*
@@ -23,10 +23,8 @@
 
     $(window).konami({
         code: [71,69,84],
-        eventName: 'konami.get'
+        cheat: getStuff
     });
-
-    $(window).on('konami.get', getStuff);
 
     function getStuff() {
         let i = 0;

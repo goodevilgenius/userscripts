@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Show Picker
 // @namespace    danielrayjones
-// @version      0.0.4
+// @version      0.0.5
 // @description  Pick a show from progress page
 // @author       Dan Jones
 // @match        https://trakt.tv/users/*/progress*
@@ -18,10 +18,8 @@
 
     $(window).konami({
         code: [80, 73, 67, 75],
-        eventName: 'konami.pick'
+        cheat: pickShow
     });
-
-    $(window).on('konami.pick', pickShow);
 
     let watched_shows;
 

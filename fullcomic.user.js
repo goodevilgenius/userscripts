@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Full Comic Scraper
 // @namespace    danielrayjones
-// @version      0.0.4
+// @version      0.0.5
 // @description  Scrape comics from fullcomic.pro
 // @author       Dan Jones
 // @match        http://fullcomic.pro/*
@@ -22,10 +22,8 @@ console.log('will scrape comics');
 
     $(window).konami({
         code: [71,69,84],
-        eventName: 'konami.get'
+        cheat: getStuff
     });
-
-    $(window).on('konami.get', getStuff);
 
     function getStuff() {
         let i = 0;

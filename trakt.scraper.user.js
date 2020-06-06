@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Scraper
 // @namespace    danielrayjones
-// @version      0.0.6
+// @version      0.0.7
 // @description  Scrape lists of shows/movies from Trakt and download a JSON file
 // @author       Dan Jones
 // @match        https://trakt.tv/*
@@ -18,10 +18,8 @@
 
     $(window).konami({
         code: [71,69,84],
-        eventName: 'konami.get'
+        cheat: getStuff
     });
-
-    $(window).on('konami.get', getStuff);
 
     String.prototype.lpad = function(padString, length) {
         let str = this;

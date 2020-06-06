@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Viewcomic Scraper
 // @namespace    danielrayjones
-// @version      0.0.9
+// @version      0.0.10
 // @description  Scrape comics from viewcomic.com
 // @author       Dan Jones
 // @match        http://viewcomic.com/*
@@ -20,10 +20,8 @@
 
     $(window).konami({
         code: [71,69,84],
-        eventName: 'konami.get'
+        cheat: getStuff
     });
-
-    $(window).on('konami.get', getStuff);
 
     function getStuff() {
         let i = 0;

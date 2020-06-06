@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Comic Extra Scraper
 // @namespace    danielrayjones
-// @version      0.0.5
+// @version      0.0.6
 // @description  Scrape comics from comicextra.com
 // @author       Dan Jones
 // @match        https://www.comicextra.com/*
@@ -22,10 +22,8 @@ console.log('will scrape comics');
 
     $(window).konami({
         code: [71,69,84],
-        eventName: 'konami.get'
+        cheat: getStuff
     });
-
-    $(window).on('konami.get', getStuff);
 
     function getStuff() {
         let i = 0;
