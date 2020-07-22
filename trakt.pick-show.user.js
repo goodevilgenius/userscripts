@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Show Picker
 // @namespace    danielrayjones
-// @version      0.0.5
+// @version      0.0.6
 // @description  Pick a show from progress page
 // @author       Dan Jones
 // @match        https://trakt.tv/users/*/progress*
@@ -21,7 +21,25 @@
         cheat: pickShow
     });
 
+    $('div[data-type="show"]').on('click', function () {
+        $(this).removeClass('sortable-ghost');
+    });
+
     let watched_shows;
+
+    function getWeightedIndex(total) {
+        const opts = [];
+        for ( let idx = 0; idx < total; idx++) {
+            for (let idxInst = 0; idxInst < total - idx; idxInst++) {
+                opts.push(idx);
+            }
+        }
+
+        const totalWeights = opts.length;
+        const which = Math.floor(Math.random() * totalWeights);
+
+        return opts[which];
+    }
 
     function pickShow() {
 
@@ -35,7 +53,7 @@
         $shows.removeClass('sortable-ghost');
         $shows = filterShows($shows);
 
-        let picked = Math.floor(Math.random() * $shows.length);
+        let picked = getWeightedIndex($shows.length);
         let $picked = $shows.eq(picked);
 
         $shows.addClass('sortable-ghost');
