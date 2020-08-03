@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Show Picker
 // @namespace    danielrayjones
-// @version      0.0.6
+// @version      0.0.7
 // @description  Pick a show from progress page
 // @author       Dan Jones
 // @match        https://trakt.tv/users/*/progress*
@@ -20,6 +20,10 @@
         code: [80, 73, 67, 75],
         cheat: pickShow
     });
+
+    $('.subnav-wrapper .container .left')
+        .append('<span class="filter-dropdown pick-episode" title="Pick Episode"><span class="icon trakt-icon-bars"></span></span>')
+        .find('.pick-episode').on('click', pickShow);
 
     $('div[data-type="show"]').on('click', function () {
         $(this).removeClass('sortable-ghost');
