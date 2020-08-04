@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Show Picker
 // @namespace    danielrayjones
-// @version      0.0.7
+// @version      0.0.8
 // @description  Pick a show from progress page
 // @author       Dan Jones
 // @match        https://trakt.tv/users/*/progress*
@@ -10,7 +10,7 @@
 // @require      https://bowercdn.net/c/konami-code-1.3.2/src/jquery.konami.min.js
 // ==/UserScript==
 
-/* global $, compressedCache, localStorage */
+/* global $, compressedCache, localStorage, MutationObserver */
 /* jshint esversion: 6 */
 
 (function() {
@@ -21,9 +21,17 @@
         cheat: pickShow
     });
 
-    $('.subnav-wrapper .container .left')
-        .append('<span class="filter-dropdown pick-episode" title="Pick Episode"><span class="icon trakt-icon-bars"></span></span>')
-        .find('.pick-episode').on('click', pickShow);
+    function addPickButton() {
+        const $leftNav = $('.subnav-wrapper .container .left');
+        const $found = $leftNav.find('.pick-episode');
+        if (!$found.length) {
+            $leftNav.append('<span class="filter-dropdown pick-episode" title="Pick Episode"><span class="icon trakt-icon-bars"></span></span>')
+                .find('.pick-episode').on('click', pickShow);
+        }
+    }
+    addPickButton();
+    const observer = new MutationObserver(addPickButton);
+    observer.observe(document.head.parentElement, {childList: true});
 
     $('div[data-type="show"]').on('click', function () {
         $(this).removeClass('sortable-ghost');
