@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Show Picker
 // @namespace    danielrayjones
-// @version      0.0.8
+// @version      0.0.9
 // @description  Pick a show from progress page
 // @author       Dan Jones
 // @match        https://trakt.tv/users/*/progress*
@@ -25,7 +25,7 @@
         const $leftNav = $('.subnav-wrapper .container .left');
         const $found = $leftNav.find('.pick-episode');
         if (!$found.length) {
-            $leftNav.append('<span class="filter-dropdown pick-episode" title="Pick Episode"><span class="icon trakt-icon-bars"></span></span>')
+            $leftNav.append('<span class="filter-dropdown toggle-simple-progress pick-episode" title="Pick Episode"><span class="icon trakt-icon-wand"></span></span>')
                 .find('.pick-episode').on('click', pickShow);
         }
     }
