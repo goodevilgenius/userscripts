@@ -78,18 +78,24 @@
     function filterShows($shows) {
 
         // Milliseconds in two days
-        let twoDays = 2 * 24 * 60 * 60 * 1000;
-        let twoDaysAgo = (new Date()) - twoDays;
+        const twoDays = 2 * 24 * 60 * 60 * 1000;
+        const twoDaysAgo = (new Date()) - twoDays;
 
         $shows.each(function (i, show) {
 
-            let showId = Number.parseInt(show.dataset.showId);
-            let showInfo = watched_shows[showId];
+            const showId = Number.parseInt(show.dataset.showId);
+            const showInfo = watched_shows[showId];
             if (!showInfo) return;
 
-            let lastWatch = showInfo.ts*1000;
+            const lastWatch = showInfo.ts*1000;
             // Skip ones we've watched in the last two days
             if (lastWatch > twoDaysAgo) {
+                show.classList.add('sortable-ghost');
+            }
+
+            const percentage = show.dataset.percentage;
+
+            if (percentage == 100) {
                 show.classList.add('sortable-ghost');
             }
         });
