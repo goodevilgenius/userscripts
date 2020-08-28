@@ -21,6 +21,10 @@
         cheat: pickShow
     });
 
+    function unghost() {
+        $(this).removeClass('sortable-ghost');
+    }
+
     function addPickButton() {
         const $leftNav = $('.subnav-wrapper .container .left');
         const $found = $leftNav.find('.pick-episode');
@@ -28,14 +32,12 @@
             $leftNav.append('<span class="filter-dropdown toggle-simple-progress pick-episode" title="Pick Episode"><span class="icon trakt-icon-wand"></span></span>')
                 .find('.pick-episode').on('click', pickShow);
         }
+
+        $('div[data-type="show"]').on('click', unghost);
     }
     addPickButton();
     const observer = new MutationObserver(addPickButton);
     observer.observe(document.head.parentElement, {childList: true});
-
-    $('div[data-type="show"]').on('click', function () {
-        $(this).removeClass('sortable-ghost');
-    });
 
     let watched_shows;
 
