@@ -16,6 +16,8 @@
 (function() {
     'use strict';
 
+    let watched_shows;
+
     $(window).konami({
         code: [80, 73, 67, 75],
         cheat: pickShow
@@ -32,14 +34,17 @@
             $leftNav.append('<span class="filter-dropdown toggle-simple-progress pick-episode" title="Pick Episode"><span class="icon trakt-icon-wand"></span></span>')
                 .find('.pick-episode').on('click', pickShow);
         }
-
-        $('div[data-type="show"]').on('click', unghost);
     }
-    addPickButton();
-    const observer = new MutationObserver(addPickButton);
-    observer.observe(document.head.parentElement, {childList: true});
 
-    let watched_shows;
+    function refreshPage() {
+        addPickButton();
+        $('div[data-type="show"]')
+            .on('click', unghost);
+    }
+
+    refreshPage();
+    const observer = new MutationObserver(refreshPage);
+    observer.observe(document.head.parentElement, {childList: true});
 
     function getWeightedIndex(total) {
         const opts = [];
