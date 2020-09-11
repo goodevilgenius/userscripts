@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Trakt Scraper
 // @namespace    danielrayjones
-// @version      0.0.7
+// @version      0.0.8
 // @description  Scrape lists of shows/movies from Trakt and download a JSON file
 // @author       Dan Jones
 // @match        https://trakt.tv/*
@@ -35,6 +35,8 @@
     function processEpisode(that) {
         let $ep = $(that);
         let $series = $ep.find('[itemtype="http://schema.org/TVSeries"]');
+
+        let this_ep = $ep.data();
 
         if ($series.length < 1) {
             $series = $('[itemtype="http://schema.org/TVSeries"]');
@@ -78,34 +80,41 @@
 
         let watched = watched_shows[series] ? watched_shows[series].e[ep] : null;
 
-        let this_ep = {
-            series_id: series,
-            episode_id: ep,
-            title,
-            url,
-            released,
-            watches: watched ? watched[1] : 0,
-            last_watched: watched ? watched[0] : null,
-        };
+        let $img = $ep.find('[itemprop="image"]');
+        if ($img.length > 0) {
+            this_ep['image'] = $img.attr('content');
+        }
+
+        this_ep['series_id'] = series;
+        this_ep['episode_id'] = ep;
+        this_ep['title'] = title;
+        this_ep['url'] = url;
+        this_ep['released'] = released;
+        this_ep['watches'] = watched ? watched[1] : 0;
+        this_ep['last_watched'] = watched ? watched[0] : null;
 
         return this_ep;
     }
 
     function processMovie(that) {
         let $mov = $(that);
+        let this_mov = $mov.data();
         let id = $mov.data('movie-id');
 
         let title = $mov.children('[itemprop="name"]').attr('content');
         let url = $mov.children('[itemprop="url"]').attr('content');
         let watched = watched_movies[id];
 
-        let this_mov = {
-            id,
-            title,
-            url,
-            watches: watched ? watched[1] : 0,
-            last_watched: watched ? watched[0] : null,
-        };
+        let $img = $mov.find('[itemprop="image"]');
+        if ($img.length > 0) {
+            this_mov['image'] = $img.attr('content');
+        }
+
+        this_mov['id'] = id;
+        this_mov['title'] = title;
+        this_mov['url'] = url;
+        this_mov['watches'] = watched ? watched[1] : 0;
+        this_mov['last_watched'] = watched ? watched[0] : null;
 
         return this_mov;
     }
